@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>禅意写作- 一个简洁、纯粹的 Markdown 写作应用</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1><img src="imgs/zen-writer.png" width="30" height="30" /> <strong>禅意写作</strong> <em>一个简洁、纯粹的 Markdown 写作应用</em></h1>
+        
+        <div id="carousel">
+            <ul>
+                <li>
+                    <figure>
+                        <figcaption>浅色模式</figcaption>
+                        <img src="./imgs/light-mode.png" alt="">
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <figcaption>深色模式</figcaption>
+                        <img src="./imgs/dark-mode.png" alt="">
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <figcaption>浅色主题</figcaption>
+                        <img src="./imgs/light-theme.png" alt="">
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <figcaption>深色主题</figcaption>
+                        <img src="./imgs/dark-theme.png" alt="">
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <figcaption>书籍主题</figcaption>
+                        <img src="./imgs/book-theme.png" alt="">
+                    </figure>
+                </li>
+            </ul>
+            <div class="btns">
+                <button class="active" onclick="clear();lc.go(0)">1</button>
+                <button onclick="clearIntervar();lc.go(1)">2</button>
+                <button onclick="clearIntervar();lc.go(2)">3</button>
+                <button onclick="clearIntervar();lc.go(3)">4</button>
+                <button onclick="clearIntervar();lc.go(4)">5</button>
+            </div>
+            <div class="downloads">
+                <a href="#none">macOS(beta)</a>
+                <a href="#none">Windows(comming soon or not)</a>
+                <a href="#none">Linux(maybe or not)</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="ltjx">
+        <p>永和九年 岁在癸丑 暮春之初 会于会稽山阴之兰亭 修稧事也 群贤毕至 少长咸集 此地有崇山峻领 茂林修竹 又有清流激湍 映带左右 引以为流觞曲水 列坐其次 虽无丝竹管弦之盛 一觞一咏 亦足以畅叙幽情 </p>
+        <p>是日也 天朗气清 惠风和畅 仰观宇宙之大 俯察品类之盛 所以游目骋怀 足以极视听之娱 信可乐也 </p>
+        <p>夫人之相与 俯仰一世 或取诸怀抱 悟言一室之内 或因寄所托 放浪形骸之外 虽趣舍万殊 静躁不同 当其欣于所遇 暂得于己 怏然自足 不知老之将至 及其所之既倦 情随事迁 感慨系之矣 向之所欣 俯仰之间 已为陈迹 犹不能不以之兴怀 况修短随化 终期于尽 古人云「死生亦大矣」岂不痛哉</p>
+        <p>每揽昔人兴感之由 若合一契 未尝不临文嗟悼 不能喻之于怀 固知一死生为虚诞 齐彭殇为妄作 后之视今 亦由今之视昔 悲夫 故列叙时人 录其所述 虽世殊事异 所以兴怀 其致一也 后之揽者 亦将有感于斯文 </p>
+    </div>
+    <script>
+        class LoopCounter {
+            constructor(len, step = 1, frame = 0, loop = true) {
+                this.len = len;
+                this.step = step;
+                this.frame = frame;
+                this.loop = loop;
+                this.onChange = () => { };
+                this.done = () => { };
+                this.onHead = () => { };
+                this.onTail = () => { };
+                this.check(frame);
+            }
+            get frames() { return Math.ceil(this.len / this.step); }
+            get tailCount() { return this.len % this.step; }
+            get _prev() {
+                return this.frame - 1;
+            }
+            get _next() {
+                return this.frame + 1;
+            }
+            get has_prev() {
+                return this.frame > 0;
+            }
+            get has_next() {
+                return this.frame + 1 < this.frames;
+            }
+            has(dir) {
+                if (dir === 'prev') {
+                    return this.has_prev;
+                }
+                if (dir === 'next') {
+                    return this.has_next;
+                }
+                throw new Error(`direction [${dir}] not valid.`);
+            }
+            setCurrent(frameIndex) {
+                this.check(frameIndex);
+                this.onChange(this.frame, frameIndex);
+                this.frame = frameIndex;
+                this.done(frameIndex);
+            }
+            prev() {
+                if (this.has_prev) {
+                    this.setCurrent(this._prev);
+                }
+                else {
+                    if (this.loop) {
+                        this.setCurrent(this.frames - 1);
+                    }
+                    else {
+                        this.onHead();
+                    }
+                }
+                return this.frame;
+            }
+            next() {
+                if (this.has_next) {
+                    this.setCurrent(this._next);
+                }
+                else {
+                    if (this.loop) {
+                        this.setCurrent(0);
+                    }
+                    else {
+                        this.onTail();
+                    }
+                }
+                return this.frame;
+            }
+            check(idx) {
+                if (idx < 0 || idx >= this.frames) {
+                    throw new Error(`Frame index [${idx}] not in range.`);
+                }
+            }
+            go(pos) {
+                if (typeof pos === 'number') {
+                    this.setCurrent(pos);
+                }
+                if (pos === 'prev') {
+                    this.prev();
+                }
+                if (pos === 'next') {
+                    this.next();
+                }
+            }
+        }
+
+        let ul = document.querySelector('#carousel ul')
+        let len = ul.querySelectorAll('li').length
+        let itemWidth = ul.querySelector('li').clientWidth
+
+        let lc = window.lc = new LoopCounter(len)
+        lc.onChange = (before, after) => {
+            ul.style.transform = `translateX(-${after * itemWidth}px)`
+            document.querySelectorAll('button').forEach((btn, idx) => {
+                if (idx === after) {
+                    btn.classList.add('active')
+                } else {
+                    btn.classList.remove('active')
+                }
+            })
+        }
+
+        window.clearIntervar = () => clearInterval(window.interval)
+        window.interval = setInterval(() => lc.next(), 5000);
+
+        window.addEventListener('resize', () => {
+            ul.style.transform = 'none'
+            itemWidth = ul.querySelector('li').clientWidth
+            lc = new LoopCounter(3)
+        })
+    </script>
+</body>
+</html>

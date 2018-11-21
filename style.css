@@ -1,0 +1,86 @@
+html, body {
+  height: 100%;
+  width: 100%; }
+
+* {
+  box-sizing: border-box; }
+
+li, ul, figure, body {
+  margin: 0;
+  padding: 0; }
+
+body {
+  color: #333; }
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto; }
+
+img {
+  vertical-align: middle;
+  max-width: 100%; }
+
+ul {
+  list-style: none; }
+
+h1, h2, h3, h4 {
+  font-weight: normal; }
+
+h1 em {
+  font-size: 14px; }
+
+#carousel {
+  width: 100%;
+  overflow: hidden; }
+  #carousel ul {
+    display: flex;
+    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1); }
+    #carousel ul li {
+      width: 100%;
+      flex: 0 0 100%;
+      padding: 0 30px;
+      text-align: center; }
+  #carousel .btns, #carousel .downloads {
+    text-align: center;
+    display: flex;
+    padding: 0 70px;
+    justify-content: space-between;
+    margin-bottom: 20px; }
+    #carousel .btns button, #carousel .downloads button {
+      flex: 0 0 20%;
+      border: none;
+      border-bottom: 2px solid #fff; }
+      #carousel .btns button:focus, #carousel .downloads button:focus {
+        outline: none; }
+    #carousel .btns .active, #carousel .downloads .active {
+      border-bottom: 2px solid #ccc; }
+  #carousel .downloads {
+    margin-top: 40px;
+    flex-direction: column; }
+    #carousel .downloads a {
+      flex: none;
+      padding: 1em;
+      color: #333;
+      border: 1px solid #999;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 5px 200px; }
+      #carousel .downloads a:focus {
+        box-shadow: 0 0 0 0.125em rgba(50, 50, 50, 0.2); }
+
+#ltjx {
+  position: absolute;
+  z-index: -1;
+  right: 1em;
+  top: 1em;
+  height: 800px;
+  writing-mode: vertical-rl;
+  font-size: 30px;
+  color: rgba(238, 238, 238, 0.43);
+  user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, STKaiti; }
+  #ltjx p {
+    line-height: 2em;
+    margin-left: 3em; }
+
+/*# sourceMappingURL=style.css.map */
