@@ -5,7 +5,7 @@ html, body {
 * {
   box-sizing: border-box; }
 
-li, ul, figure, body {
+li, ul, figure, body, blockquote {
   margin: 0;
   padding: 0; }
 
@@ -49,7 +49,8 @@ h1 em {
     #carousel .btns button, #carousel .downloads button {
       flex: 0 0 20%;
       border: none;
-      border-bottom: 2px solid #fff; }
+      border-bottom: 2px solid #fff;
+      background: none; }
       #carousel .btns button:focus, #carousel .downloads button:focus {
         outline: none; }
     #carousel .btns .active, #carousel .downloads .active {
@@ -65,8 +66,12 @@ h1 em {
       text-decoration: none;
       border-radius: 5px;
       margin: 5px 200px; }
-      #carousel .downloads a:focus {
+      #carousel .downloads a:focus:not(.disabled) {
         box-shadow: 0 0 0 0.125em rgba(50, 50, 50, 0.2); }
+      #carousel .downloads a.disabled {
+        color: #ccc;
+        border-color: #ccc;
+        cursor: default; }
 
 #ltjx {
   position: absolute;
@@ -76,9 +81,12 @@ h1 em {
   height: 800px;
   writing-mode: vertical-rl;
   font-size: 30px;
-  color: rgba(238, 238, 238, 0.43);
   user-select: none;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, STKaiti; }
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, STKaiti;
+  background: linear-gradient(to bottom, rgba(238, 238, 238, 0.8) 0%, transparent 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; }
   #ltjx p {
     line-height: 2em;
     margin-left: 3em; }

@@ -1,6 +1,6 @@
 html, body { height: 100%; width: 100%; }
 * { box-sizing: border-box; }
-li, ul, figure, body { margin: 0; padding: 0; }
+li, ul, figure, body, blockquote { margin: 0; padding: 0; }
 body { color: #333; }
 .container { max-width: 1000px; margin: 0 auto;}
 img { vertical-align: middle; max-width: 100%; }
@@ -32,6 +32,7 @@ h1 em { font-size: 14px; }
             flex: 0 0 20%;
             border: none;
             border-bottom: 2px solid #fff;
+            background: none;
             &:focus {
                 outline: none;
             }
@@ -51,8 +52,13 @@ h1 em { font-size: 14px; }
             text-decoration: none;
             border-radius: 5px;
             margin: 5px 200px;
-            &:focus {
+            &:focus:not(.disabled) {
                 box-shadow: 0 0 0 0.125em rgba(50,50,50,.2);
+            }
+            &.disabled {
+                color: #ccc;
+                border-color: #ccc;
+                cursor: default;
             }
         }
     }
@@ -66,9 +72,14 @@ h1 em { font-size: 14px; }
     height: 800px;
     writing-mode: vertical-rl;
     font-size: 30px;
-    color: rgba(238, 238, 238, 0.43);
+    // color: rgba(238, 238, 238, 0.9);
     user-select: none;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, STKaiti;
+
+    background: linear-gradient(to bottom, rgba(238, 238, 238,0.8) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 
     p {
         line-height: 2em;
