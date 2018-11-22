@@ -18,47 +18,64 @@
 <body>
     <div class="container">
         <h1><img src="imgs/zen-writer.png" width="30" height="30" /> <strong>禅意写作</strong> <em>一个简洁、纯粹的 Markdown 写作应用</em></h1>
-        
-        <div id="carousel">
-            <ul>
-                <li>
-                    <figure>
-                        <figcaption>浅色模式</figcaption>
-                        <img src="./imgs/light-mode.png" alt="">
-                    </figure>
-                </li>
-                <li>
-                    <figure>
-                        <figcaption>深色模式</figcaption>
-                        <img src="./imgs/dark-mode.png" alt="">
-                    </figure>
-                </li>
-                <li>
-                    <figure>
-                        <figcaption>浅色主题</figcaption>
-                        <img src="./imgs/light-theme.png" alt="">
-                    </figure>
-                </li>
-                <li>
-                    <figure>
-                        <figcaption>深色主题</figcaption>
-                        <img src="./imgs/dark-theme.png" alt="">
-                    </figure>
-                </li>
-                <li>
-                    <figure>
-                        <figcaption>书籍主题</figcaption>
-                        <img src="./imgs/book-theme.png" alt="">
-                    </figure>
-                </li>
-            </ul>
-            <div class="btns">
-                <button class="active" onclick="clear();lc.go(0)">1</button>
-                <button onclick="clearIntervar();lc.go(1)">2</button>
-                <button onclick="clearIntervar();lc.go(2)">3</button>
-                <button onclick="clearIntervar();lc.go(3)">4</button>
-                <button onclick="clearIntervar();lc.go(4)">5</button>
-            </div>
+    </div>
+
+ 
+    <div id="carousel">
+        <ul>
+            <li>
+                <figure>
+                    <figcaption>浅色模式</figcaption>
+                    <img src="./imgs/light-mode.png" alt="">
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <figcaption>深色模式</figcaption>
+                    <img src="./imgs/dark-mode.png" alt="">
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <figcaption>浅色主题</figcaption>
+                    <img src="./imgs/light-theme.png" alt="">
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <figcaption>深色主题</figcaption>
+                    <img src="./imgs/dark-theme.png" alt="">
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <figcaption>书籍主题</figcaption>
+                    <img src="./imgs/book-theme.png" alt="">
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <figcaption>浅色竖版模式</figcaption>
+                    <img src="./imgs/light-vertical.png" alt="">
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <figcaption>深色竖版模式</figcaption>
+                    <img src="./imgs/dark-vertical.png" alt="">
+                </figure>
+            </li>
+        </ul>
+        <div class="btns">
+            <button class="active" onclick="clear();lc.go(0)">1</button>
+            <button onclick="clearIntervar();lc.go(1)">2</button>
+            <button onclick="clearIntervar();lc.go(2)">3</button>
+            <button onclick="clearIntervar();lc.go(3)">4</button>
+            <button onclick="clearIntervar();lc.go(4)">5</button>
+            <button onclick="clearIntervar();lc.go(5)">6</button>
+            <button onclick="clearIntervar();lc.go(6)">7</button>
+        </div>
+        <div class="container">
             <div class="downloads">
                 <a title="Coming soon next few days" href="#none">macOS(beta)</a>
                 <a class="disabled" title="Unavailabled for now" href="#none">Windows(comming soon or not)</a>
@@ -168,9 +185,11 @@
         let len = ul.querySelectorAll('li').length
         let itemWidth = ul.querySelector('li').clientWidth
 
-        let lc = window.lc = new LoopCounter(len)
-        lc.onChange = (before, after) => {
+        function onChange(before, after) {
             ul.style.transform = `translateX(-${after * itemWidth}px)`
+            changeBtn(after)
+        }
+        function changeBtn(after) {
             document.querySelectorAll('button').forEach((btn, idx) => {
                 if (idx === after) {
                     btn.classList.add('active')
@@ -180,13 +199,19 @@
             })
         }
 
+        window.lc = new LoopCounter(len)
+        window.lc.onChange = onChange
+
         window.clearIntervar = () => clearInterval(window.interval)
-        window.interval = setInterval(() => lc.next(), 5000);
+        window.interval = setInterval(() => window.lc.next(), 5000);
 
         window.addEventListener('resize', () => {
-            ul.style.transform = 'none'
+            onChange(0, 0)
             itemWidth = ul.querySelector('li').clientWidth
-            lc = new LoopCounter(3)
+            window.lc = new LoopCounter(len)
+            window.lc.onChange = onChange
+            clearIntervar()
+            window.interval = setInterval(() => window.lc.next(), 5000);
         })
     </script>
 </body>

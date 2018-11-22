@@ -47,7 +47,7 @@ h1 em {
     justify-content: space-between;
     margin-bottom: 20px; }
     #carousel .btns button, #carousel .downloads button {
-      flex: 0 0 20%;
+      flex: 0 0 10%;
       border: none;
       border-bottom: 2px solid #fff;
       background: none; }
